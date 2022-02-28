@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Form</title>
+    </head>
+    <body>
+        <form action="/login" method="post" id="'form">  <!-- id is used just for getting the from passed values in json file using ajax -->
+            <div class="imgcontainer">
+              <img src="https://2019.igem.org/wiki/images/b/b9/Safety_safetyform.svg" alt="Avatar" class="avatar" width="100" height="100">
+            </div>
+          
+            <div class="container">
+              <label for="uname"><b>Username</b></label>
+              <input type="text" placeholder="Enter Username" name="uname" required>
+          
+              <label for="psw"><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" required>
+          
+              <button type="submit">Login</button>
+              <label>
+                <input type="checkbox" checked="checked" name="remember"> Remember me
+              </label>
+            </div>
+          
+            <div class="container" style="background-color:#f1f1f1">
+              <button type="button" class="cancelbtn">Cancel</button>
+              <span class="psw">Forgot <a href="#">password?</a></span>
+            </div>
+          </form>
+
+          <script>
+            $(document).ready(()=>{
+              $('#form').submit((e)=>{
+                e.preventDefault();
+                $.ajax({
+                  url: '/login',
+                  type: 'post',
+                  contentType: 'application/json',
+                  data: JSON.stringify($('#form').serializeArray()),
+                  sucess: (response=>{
+                    console.log('successfully got response');
+                    console.log(response);
+                  })
+                })
+              })
+            })
+          </script>
+    </body>
+</html>
